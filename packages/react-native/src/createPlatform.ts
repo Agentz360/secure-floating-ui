@@ -76,17 +76,11 @@ export const createPlatform = ({
     });
   },
   getClippingRect() {
-    const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
-    const {height: screenHeight} = Dimensions.get('screen');
-    const statusBarHeight = StatusBar.currentHeight || 0;
-    // on iOS: screenHeight = windowHeight
-    // on Android: screenHeight = windowHeight + statusBarHeight + navigationBarHeight
-    const navigationBarHeight = isAndroid
-      ? screenHeight - windowHeight - statusBarHeight
-      : 0;
+    const {width, height} = Dimensions.get('window');
+
     return Promise.resolve({
-      width: windowWidth,
-      height: screenHeight - navigationBarHeight,
+      width,
+      height,
       ...(sameScrollView ? scrollOffsets : ORIGIN),
     });
   },
